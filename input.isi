@@ -5,19 +5,19 @@ programa
     escreva("Programa Teste").
 
     escreva ("Digite A").
-    leia (a).
+    leia (a:Num).
     a := 2.
     escreva ("Digite B").
-    leia (b).
+    leia (b:Num).
     b := 2.
 
     se (a<b)
-    entao{
+    entao
         c := a + b + 1.
-    }
-    senao{
+
+    senao
         c := a - b.
-    }
+    fimse
 
     escreva ("C e igual a ").
     escreva (c).

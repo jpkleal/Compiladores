@@ -1,19 +1,12 @@
 from enum import Enum
 
 
-ORDINAL = {
-    0: False,
-    1: True,
-    2: False,
-    3: False
-}
-
-DENIABLE = {
-    0: False,
-    1: True,
-    2: False,
-    3: True
-}
+OPERATIONS = (
+    (),
+    ('Neg', 'Comp', 'Ord', 'Add', 'Sub', 'Mul', 'Div', 'Log'),
+    ('Comp', ),
+    ('Neg', 'Comp', 'Log'),
+)
 
 
 class VarTypes(Enum):
@@ -22,8 +15,11 @@ class VarTypes(Enum):
     TEXT = 2
     BOOLEAN = 3
 
-    def orderable(self):
-        return ORDINAL[self.value]
+    def operations(self):
+        return OPERATIONS[self.value]
 
-    def deniable(self):
-        return DENIABLE[self.value]
+
+INPUT_TYPES = {
+    'NUM': VarTypes.NUM,
+    'TEXTO': VarTypes.TEXT,
+}

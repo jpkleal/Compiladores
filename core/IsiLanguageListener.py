@@ -84,6 +84,15 @@ class IsiLanguageListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by IsiLanguageParser#assignId.
+    def enterAssignId(self, ctx:IsiLanguageParser.AssignIdContext):
+        pass
+
+    # Exit a parse tree produced by IsiLanguageParser#assignId.
+    def exitAssignId(self, ctx:IsiLanguageParser.AssignIdContext):
+        pass
+
+
     # Enter a parse tree produced by IsiLanguageParser#ctrlFluxo.
     def enterCtrlFluxo(self, ctx:IsiLanguageParser.CtrlFluxoContext):
         pass
@@ -120,24 +129,6 @@ class IsiLanguageListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by IsiLanguageParser#expr.
-    def enterExpr(self, ctx:IsiLanguageParser.ExprContext):
-        pass
-
-    # Exit a parse tree produced by IsiLanguageParser#expr.
-    def exitExpr(self, ctx:IsiLanguageParser.ExprContext):
-        pass
-
-
-    # Enter a parse tree produced by IsiLanguageParser#exprl.
-    def enterExprl(self, ctx:IsiLanguageParser.ExprlContext):
-        pass
-
-    # Exit a parse tree produced by IsiLanguageParser#exprl.
-    def exitExprl(self, ctx:IsiLanguageParser.ExprlContext):
-        pass
-
-
     # Enter a parse tree produced by IsiLanguageParser#termo.
     def enterTermo(self, ctx:IsiLanguageParser.TermoContext):
         pass
@@ -147,12 +138,12 @@ class IsiLanguageListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by IsiLanguageParser#declId.
-    def enterDeclId(self, ctx:IsiLanguageParser.DeclIdContext):
+    # Enter a parse tree produced by IsiLanguageParser#termol.
+    def enterTermol(self, ctx:IsiLanguageParser.TermolContext):
         pass
 
-    # Exit a parse tree produced by IsiLanguageParser#declId.
-    def exitDeclId(self, ctx:IsiLanguageParser.DeclIdContext):
+    # Exit a parse tree produced by IsiLanguageParser#termol.
+    def exitTermol(self, ctx:IsiLanguageParser.TermolContext):
         pass
 
 
