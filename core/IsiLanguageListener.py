@@ -7,6 +7,7 @@ else:
 
 from vartypes import *
 from exceptions import SemanticException
+from core import Program, Bloc, Termo, OP
 
 
 # This class defines a complete listener for a parse tree produced by IsiLanguageParser.
@@ -75,12 +76,12 @@ class IsiLanguageListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by IsiLanguageParser#cmdExpr.
-    def enterCmdExpr(self, ctx:IsiLanguageParser.CmdExprContext):
+    # Enter a parse tree produced by IsiLanguageParser#cmdAssign.
+    def enterCmdAssign(self, ctx:IsiLanguageParser.CmdAssignContext):
         pass
 
-    # Exit a parse tree produced by IsiLanguageParser#cmdExpr.
-    def exitCmdExpr(self, ctx:IsiLanguageParser.CmdExprContext):
+    # Exit a parse tree produced by IsiLanguageParser#cmdAssign.
+    def exitCmdAssign(self, ctx:IsiLanguageParser.CmdAssignContext):
         pass
 
 
@@ -126,6 +127,15 @@ class IsiLanguageListener(ParseTreeListener):
 
     # Exit a parse tree produced by IsiLanguageParser#ctrlDoWhile.
     def exitCtrlDoWhile(self, ctx:IsiLanguageParser.CtrlDoWhileContext):
+        pass
+
+
+    # Enter a parse tree produced by IsiLanguageParser#new_termo.
+    def enterNew_termo(self, ctx:IsiLanguageParser.New_termoContext):
+        pass
+
+    # Exit a parse tree produced by IsiLanguageParser#new_termo.
+    def exitNew_termo(self, ctx:IsiLanguageParser.New_termoContext):
         pass
 
 

@@ -10,6 +10,7 @@ else:
 
 from vartypes import *
 from exceptions import SemanticException
+from core import Program, Bloc, Termo, OP
 
 
 def serializedATN():
@@ -169,10 +170,13 @@ class IsiLanguageLexer(Lexer):
 
 
         self._symbol_table = {}
+        self._bloc_stack = []
         self._last_assignment = None
         self._last_termo_type = VarTypes.UNDEFINED
         self._input_set_type = VarTypes.UNDEFINED
         self._first_p_type = VarTypes.UNDEFINED
+        self._last_termo = None
+        self.program = Program()
 
     def showIds(self):
         for key, vals in self._symbol_table.items():
@@ -229,5 +233,19 @@ class IsiLanguageLexer(Lexer):
         for key, vals in self._symbol_table.items():
             if not vals.initialized:
                 raise SemanticException(f"Variable created and not used: {key}")
+
+    def end_bloc(self):
+        if len(self._bloc_stack) > 1:
+            self._bloc_stack[-2].append(self._bloc_stack.pop(-1))
+
+    @property
+    def bloc(self):
+        return self._bloc_stack[-1]
+
+    def begin_termo(self):
+        self._last_termo = Termo()
+
+    def append_to_termo(self, text):
+        self._last_termo.append(text)
 
 

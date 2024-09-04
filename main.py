@@ -1,8 +1,7 @@
 import fileinput
 import sys
 from antlr4 import *
-from core.IsiLanguageLexer import IsiLanguageLexer
-from core.IsiLanguageParser import IsiLanguageParser
+from core import *
 
 # input_text = input("> ")
 lexer = IsiLanguageLexer(FileStream('input.isi'))
@@ -14,3 +13,12 @@ tree = parser.prog()
 print(tree.toStringTree(recog=parser))
 parser.showIds()
 parser.verify_unused_variables()
+p = parser.program
+print("----------")
+print("C: \n")
+p.gen_c_code()
+
+print("\n")
+print("---------")
+print("Python: \n")
+p.gen_python_code()

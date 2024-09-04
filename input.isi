@@ -1,19 +1,19 @@
 programa
 
-    declare a,b,c,d,e.
+    declare a,b,c,d.
 
     escreva("Programa Teste").
 
     escreva ("Digite A").
-    leia (a:Num).
+    leia (a:NUM).
     a := 2.
     escreva ("Digite B").
-    leia (b:Num).
+    leia (b:NUM).
     b := 2.
 
     se (a<b)
     entao
-        c := a + b + 1.
+        c := a + b.
 
     senao
         c := a - b.
@@ -22,7 +22,7 @@ programa
     escreva ("C e igual a ").
     escreva (c).
 
-    d := c * a + b.
+    d := a + b.
     escreva ("D e igual a ").
     escreva (d).
 fimprog.
