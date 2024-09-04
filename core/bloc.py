@@ -2,8 +2,9 @@ from commands import *
 
 
 class Bloc:
-    def __init__(self):
+    def __init__(self, first=False):
         self.commands = []
+        self.first = first
 
     def append(self, cmd):
         if isinstance(cmd, Bloc):
@@ -29,10 +30,16 @@ class Bloc:
         for i in self.commands:
             sub_commands = i.to_py()
             if isinstance(sub_commands, str):
-                code.append("\t"+sub_commands)
+                if self.first:
+                    code.append(sub_commands)
+                else:
+                    code.append("\t"+sub_commands)
             else:
                 for j in sub_commands:
-                    code.append("\t"+j)
+                    if self.first:
+                        code.append(j)
+                    else:
+                        code.append("\t"+j)
 
         return code
 

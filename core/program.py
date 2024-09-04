@@ -8,6 +8,10 @@ class Program:
         self.symbol_table: list[Var] = []
         self.command = None
 
+    def set_command(self, command):
+        self.command = command
+        self.command.first = True
+
     def gen_c_code(self):
         vartype_to_c = {
             VarTypes.NUM: "float {name};",

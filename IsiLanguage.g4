@@ -92,7 +92,7 @@ def append_to_termo(self, text):
 }
 
 //prog        : 'programa' declara bloco END ENDCMD
-prog        : BEGIN declara bloco END ENDCMD {self.program.symbol_table=self._symbol_table.values()} {self.program.command=self._bloc_stack[0]}
+prog        : BEGIN declara bloco END ENDCMD {self.program.symbol_table=self._symbol_table.values()} {self.program.set_command(self._bloc_stack[0])}
             ;
 declara     : DECLARE declaral (',' declaral)* ENDCMD
             ;

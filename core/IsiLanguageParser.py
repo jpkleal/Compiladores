@@ -308,7 +308,7 @@ class IsiLanguageParser ( Parser ):
             self.state = 36
             self.match(IsiLanguageParser.ENDCMD)
             self.program.symbol_table=self._symbol_table.values()
-            self.program.command=self._bloc_stack[0]
+            self.program.set_command(self._bloc_stack[0])
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
