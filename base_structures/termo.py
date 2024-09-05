@@ -73,3 +73,24 @@ class OP:
 
     def to_py(self):
         return self.op_to_py[self.op]
+
+
+class BOOL:
+    bool_to_c = {
+        'Falso': '0',
+        'Verdadeiro': '1'
+    }
+
+    bool_to_py = {
+        'Falso': 'False',
+        'Verdadeiro': 'True'
+    }
+
+    def __init__(self, bool):
+        self.bool = bool
+
+    def to_c(self):
+        return self.bool_to_c[self.bool]
+
+    def to_py(self):
+        return self.bool_to_py[self.bool]

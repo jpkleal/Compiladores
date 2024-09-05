@@ -1266,7 +1266,7 @@ class IsiLanguageParser ( Parser ):
                 self.state = 158
                 self.match(IsiLanguageParser.BOOL)
                 self._last_termo_type=VarTypes.BOOL
-                self.append_to_termo(self._input.LT(-1).text)
+                self.append_to_termo(BOOL(self._input.LT(-1).text))
                 pass
             elif token in [26]:
                 self.state = 161

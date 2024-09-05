@@ -141,11 +141,10 @@ ctrlDoWhile : DO {self.new_command("dowhile")} {self.begin_bloc(self.last_comman
 // Values, Expr (Binary and Unary), Varibles
 new_termo   : {self.begin_termo()} termo {self._last_termo.var_type=self._last_termo_type}
             ;
-
 termo       : (ID {self.acces_var(self._input.LT(-1).text)} {self.append_to_termo(self._input.LT(-1).text)}
             | NUM {self._last_termo_type=VarTypes.NUM} {self.append_to_termo(self._input.LT(-1).text)}
             | TEXTO {self._last_termo_type=VarTypes.TEXT} {self.append_to_termo(self._input.LT(-1).text)}
-            | BOOL {self._last_termo_type=VarTypes.BOOL} {self.append_to_termo(self._input.LT(-1).text)}
+            | BOOL {self._last_termo_type=VarTypes.BOOL} {self.append_to_termo(BOOL(self._input.LT(-1).text))}
             | AP {self.append_to_termo(OP('ap'))} termo FP {self.append_to_termo(OP('fp'))}
             | OP_LOG_U {self.append_to_termo(OP(self._input.LT(-1).text))} termo {self.check_op(self._last_termo_type, 'Neg')})
             termol
