@@ -1,17 +1,10 @@
-from commands import *
-
-
 class Bloc:
     def __init__(self, first=False):
         self.commands = []
         self.first = first
 
     def append(self, cmd):
-        if isinstance(cmd, Bloc):
-            self.commands.append(cmd)
-            return
-
-        self.commands.append(STR_TO_COMMAND[cmd]())
+        self.commands.append(cmd)
 
     def to_c(self):
         code = []

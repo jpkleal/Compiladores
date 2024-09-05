@@ -5,7 +5,7 @@ class Write:
     vartype_to_c = {
         VarTypes.NUM: "%f",
         VarTypes.TEXT: "%s",
-        VarTypes.BOOLEAN: "%d"
+        VarTypes.BOOL: "%d"
     }
 
     def __init__(self):

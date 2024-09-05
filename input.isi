@@ -25,4 +25,17 @@ programa
     d := a + b.
     escreva ("D e igual a ").
     escreva (d).
+
+    faca
+        d := 2*d .
+    fimfaca
+    enquanto (Falso)
+    escreva (d).
+
+    enquanto (d > 0)
+    faca
+        d := d-1.
+        escreva(d).
+    fimfaca
+
 fimprog.

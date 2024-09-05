@@ -7,7 +7,8 @@ options{
 @header{
 from vartypes import *
 from exceptions import SemanticException
-from core import Program, Bloc, Termo, OP
+from base_structures import *
+from commands import STR_TO_COMMAND
 }
 
 @members{
@@ -76,9 +77,17 @@ def verify_unused_variables(self):
         if not vals.initialized:
             raise SemanticException(f"Variable created and not used: {key}")
 
+def begin_bloc(self, bloco):
+    self._bloc_stack.append(bloco)
+
 def end_bloc(self):
-    if len(self._bloc_stack) > 1:
-        self._bloc_stack[-2].append(self._bloc_stack.pop(-1))
+    self._bloc_stack.pop(-1)
+
+def new_command(self, cmd):
+    self.bloc.append(STR_TO_COMMAND[cmd]())
+
+def last_command(self):
+    return self.bloc.command
 
 @property
 def bloc(self):
@@ -92,26 +101,26 @@ def append_to_termo(self, text):
 }
 
 //prog        : 'programa' declara bloco END ENDCMD
-prog        : BEGIN declara bloco END ENDCMD {self.program.symbol_table=self._symbol_table.values()} {self.program.set_command(self._bloc_stack[0])}
+prog        : BEGIN declara {self.begin_bloc(self.program.command)} bloco END ENDCMD {self.program.symbol_table=self._symbol_table.values()}
             ;
 declara     : DECLARE declaral (',' declaral)* ENDCMD
             ;
 declaral    : ID {self.declare_var(self._input.LT(-1).text)}
             ;
-bloco       : {self._bloc_stack.append(Bloc())}((cmd ENDCMD) | ctrlFluxo)+ {self.end_bloc()}
+bloco       : ((cmd ENDCMD) | ctrlFluxo)+ {self.end_bloc()}
             ;
 
 // Command List
 cmd         : cmdLeitura | cmdEscrita | cmdAssign
             ;
-cmdLeitura  : INPUT {self.bloc.append("read")} {self._input_set_type=VarTypes.UNDEFINED}
-              AP assignId {self.initialize(self._input.LT(-1).text)} {self.bloc.command.assign_id=self._last_assignment}
+cmdLeitura  : INPUT {self.new_command("read")} {self._input_set_type=VarTypes.UNDEFINED}
+              AP assignId {self.initialize(self._input.LT(-1).text)} {self.last_command().assign_id=self._last_assignment}
               (':' TYPE {self._input_set_type=INPUT_TYPES[self._input.LT(-1).text]})?
               {self.input_assignment_type()} FP
             ;
-cmdEscrita  : OUTPUT {self.bloc.append("write")} AP new_termo {self.bloc.command.termo=self._last_termo} FP
+cmdEscrita  : OUTPUT {self.new_command("write")} AP new_termo {self.last_command().termo=self._last_termo} FP
             ;
-cmdAssign   : assignId ASSIGN {self.bloc.append("assign")} {self.bloc.command.assign_id=self._last_assignment} new_termo {self._last_assignment.var_type = self._last_termo_type} {self.bloc.command.termo=self._last_termo}
+cmdAssign   : assignId ASSIGN {self.new_command("assign")} {self.last_command().assign_id=self._last_assignment} new_termo {self._last_assignment.var_type = self._last_termo_type} {self.last_command().termo=self._last_termo}
             ;
 assignId    : ID {self.assign_var(self._input.LT(-1).text)}
             ;
@@ -119,14 +128,14 @@ assignId    : ID {self.assign_var(self._input.LT(-1).text)}
 // Flow Control
 ctrlFluxo   : ctrlIF | ctrlWhile | ctrlDoWhile
             ;
-ctrlIF      : IF AP new_termo FP
-              THEN bloco
-              (ELSE bloco )?
+ctrlIF      : IF {self.new_command("if")} AP new_termo {self.last_command().termo=self._last_termo} FP
+              THEN {self.begin_bloc(self.last_command().bloc_1)} bloco
+              (ELSE {self.begin_bloc(self.last_command().bloc_2)} bloco)?
               ENDIF
             ;
-ctrlWhile   : WHILE AP new_termo FP DO bloco ENDDO
+ctrlWhile   : WHILE {self.new_command("while")} AP new_termo {self.last_command().termo=self._last_termo} FP DO {self.begin_bloc(self.last_command().bloc)} bloco ENDDO
             ;
-ctrlDoWhile : DO bloco ENDDO WHILE AP termo FP
+ctrlDoWhile : DO {self.new_command("dowhile")} {self.begin_bloc(self.last_command().bloc)} bloco ENDDO WHILE AP new_termo {self.last_command().termo=self._last_termo} FP
             ;
 
 // Values, Expr (Binary and Unary), Varibles
@@ -190,11 +199,11 @@ OP_NUM      : '+' | '-' | '*' | '/'
 // Values
 TYPE        : 'NUM' | 'TEXTO'
             ;
+BOOL        :'Verdadeiro' | 'Falso'
+            ;
 ID          : ([a-z] | [A-Z]) ([a-z] | [A-Z] | [0-9])*
             ;
 TEXTO       : '"' ( [a-z] | [A-Z] | [0-9] | ',' | '.' | ' ' | '-' )* '"'
-            ;
-BOOL        :'Verdadeiro' | 'Falso'
             ;
 NUM         : ([0-9])+ ('.' [0-9]+ )?
             ;

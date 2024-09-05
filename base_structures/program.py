@@ -1,16 +1,12 @@
 from vartypes import VarTypes
 from vartypes import Var
-from commands import *
+from base_structures.bloc import Bloc
 
 
 class Program:
     def __init__(self):
         self.symbol_table: list[Var] = []
-        self.command = None
-
-    def set_command(self, command):
-        self.command = command
-        self.command.first = True
+        self.command = Bloc(True)
 
     def gen_c_code(self):
         vartype_to_c = {

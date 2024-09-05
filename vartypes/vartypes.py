@@ -13,7 +13,7 @@ class VarTypes(Enum):
     UNDEFINED = 0
     NUM = 1
     TEXT = 2
-    BOOLEAN = 3
+    BOOL = 3
 
     def operations(self):
         return OPERATIONS[self.value]

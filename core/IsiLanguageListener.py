@@ -7,7 +7,8 @@ else:
 
 from vartypes import *
 from exceptions import SemanticException
-from core import Program, Bloc, Termo, OP
+from base_structures import *
+from commands import STR_TO_COMMAND
 
 
 # This class defines a complete listener for a parse tree produced by IsiLanguageParser.
