@@ -22,7 +22,7 @@ class Program:
 
         code += "\n\treturn 0;\n}"
 
-        print(code)
+        return code
 
     def gen_python_code(self):
         vartype_to_c = {
@@ -36,4 +36,4 @@ class Program:
 
         code += "\n".join(self.command.to_py())
 
-        print(code)
+        return code
