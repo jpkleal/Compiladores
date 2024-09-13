@@ -9,7 +9,7 @@ programa
     a := 2.
     escreva ("Digite B").
     leia (b:NUM).
-    b := 2.
+    a :=  1*(2+2)*5+b
 
     se (a<b)
     entao
@@ -27,9 +27,9 @@ programa
     escreva (d).
 
     faca
-        d := 2*d .
+        d := 2*d+1*2.
     fimfaca
-    enquanto (Falso)
+    enquanto (NAO Verdadeiro)
     escreva (d).
 
     enquanto (d > 0)
