@@ -34,7 +34,7 @@ class Conditional:
         if self.bloc_2 is not None:
             code.append('else:')
 
-        for cmd in self.bloc_2.to_c():
+        for cmd in self.bloc_2.to_py():
             code.append(cmd)
 
         return code

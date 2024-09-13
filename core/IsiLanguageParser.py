@@ -1248,25 +1248,25 @@ class IsiLanguageParser ( Parser ):
                 self.state = 149
                 self.match(IsiLanguageParser.ID)
                 self.acces_var(self._input.LT(-1).text)
-                self.append_to_termo(self._input.LT(-1).text)
+                self.append_to_termo(self._symbol_table[self._input.LT(-1).text])
                 pass
             elif token in [24]:
                 self.state = 152
                 self.match(IsiLanguageParser.NUM)
                 self._last_termo_type=VarTypes.NUM
-                self.append_to_termo(self._input.LT(-1).text)
+                self.append_to_termo(Num(self._input.LT(-1).text))
                 pass
             elif token in [23]:
                 self.state = 155
                 self.match(IsiLanguageParser.TEXTO)
                 self._last_termo_type=VarTypes.TEXT
-                self.append_to_termo(self._input.LT(-1).text)
+                self.append_to_termo(Text(self._input.LT(-1).text))
                 pass
             elif token in [21]:
                 self.state = 158
                 self.match(IsiLanguageParser.BOOL)
                 self._last_termo_type=VarTypes.BOOL
-                self.append_to_termo(BOOL(self._input.LT(-1).text))
+                self.append_to_termo(Boolean(self._input.LT(-1).text))
                 pass
             elif token in [26]:
                 self.state = 161

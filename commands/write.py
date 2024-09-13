@@ -16,5 +16,5 @@ class Write:
         return code
 
     def to_c(self):
-        code = f"printf(\"{self.vartype_to_c[self.termo.var_type]}\", {self.termo.to_c()});"
+        code = [f"printf(\"{self.vartype_to_c[self.termo.var_type]}\\n\", {self.termo.to_c()});"]
         return code

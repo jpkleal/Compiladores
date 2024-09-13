@@ -1,3 +1,5 @@
+import sys
+
 from antlr4 import *
 from core import *
 
@@ -33,3 +35,7 @@ def compiler(filename, path, target):
         raise Exception('Invalid target')
 
     return target_name
+
+
+if __name__ == '__main__':
+    compiler("input.isi", "original_files", "c")
